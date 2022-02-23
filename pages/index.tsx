@@ -9,6 +9,9 @@ import { UserRejectedRequestError } from "@web3-react/injected-connector";
 import { useEffect, useState } from "react";
 import { injected } from "../connectors";
 import useMetaMaskOnboarding from "../hooks/useMetaMaskOnboarding";
+import Dot0 from "../components/Dot0";
+import Dot1 from "../components/Dot1";
+import Dot2 from "../components/Dot2";
 
 const FWEB3_TOKEN_ADDRESS = "0x4a14ac36667b574b08443a15093e417db909d7a3";
 
@@ -101,6 +104,8 @@ export default function Home() {
     completedTiles += gameTileCompletionStates[i];
   }
 
+  let selectedTile = 0;
+
   return (
     <div>
       <Head>
@@ -144,27 +149,26 @@ export default function Home() {
       <main>
         <section>
           <div className="game-grid">
-            <a href="https://www.notion.so/s-h-l/Walkthrough-058a7ba0a8fe4d798370e4f6a5fda8b0#191c2bd41ffc41b3a47a239d7cfa7346">
-              <div className={"game-tile " + (gameTileCompletionStates[0] ? "completed" : "")}>
+              <div className={"game-tile " + (gameTileCompletionStates[0] ? "completed" : "")}
+              onClick={() => {selectedTile=0; alert('test');}}>
                 <div className="tooltip">
                   Connect your wallet
                 </div>
               </div>
-            </a>
-            <a href="https://www.notion.so/s-h-l/Walkthrough-058a7ba0a8fe4d798370e4f6a5fda8b0#33e99118e0ae497bac26e5b62f629684">
-              <div className={"game-tile " + (gameTileCompletionStates[1] ? "completed" : "")}>
+            
+              <div className={"game-tile " + (gameTileCompletionStates[1] ? "completed" : "")}
+              onClick={() => selectedTile=1}>
                 <div className="tooltip">
                   Get 100 $FWEB3 tokens
                 </div>
               </div>
-            </a>
-            <a href="https://www.notion.so/s-h-l/Walkthrough-058a7ba0a8fe4d798370e4f6a5fda8b0#b9f3a9b9f2c645fb82e9633a2e44ca19">
+            
               <div className={"game-tile " + (gameTileCompletionStates[2] ? "completed" : "")}>
                 <div className="tooltip">
                   Use the faucet to get .1 $MATIC
                 </div>
               </div>
-            </a>
+            
             <a href="https://www.notion.so/s-h-l/Walkthrough-058a7ba0a8fe4d798370e4f6a5fda8b0#dfbd8c7587504d72b93cfa9b1ed3d822">
               <div className={"game-tile " + (gameTileCompletionStates[3] ? "completed" : "")}>
                 <div className="tooltip">
@@ -238,6 +242,10 @@ export default function Home() {
           </a>
         </section>
         <section>
+          {selectedTile === 0 && <Dot0 />}
+          {selectedTile === 1 && <Dot1 />}
+          {selectedTile === 2 && <Dot2 />}
+
           <h2>Learn and build in web3.</h2>
           <p>There are 9 dots to light up by doing things on a blockchain (in this case, Polygon). Once you light them all up, you win additional $FWEB3 tokens and a commemorative NFT.</p>
           {!gameTileCompletionStates[0] && !query.wallet && (
